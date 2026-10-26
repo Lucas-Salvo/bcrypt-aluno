@@ -10,7 +10,13 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/alunos", async (req, res) =>{
-    const procurarAlunos = await prisma.alunos.findMany()
+    const procurarAlunos = await prisma.alunos.findMany({
+        select: {
+            id: true,
+            nome: true,
+            email: true
+        }
+    })
     res.json(procurarAlunos)
 });
 
@@ -30,7 +36,7 @@ app.post("/registrar", async (req, res) =>{
 
 app.post("/login", async (req, res) =>{
     try{
-    const {nome, email, senha} = req.body
+    const {email, senha} = req.body
     
     const loginAlunos = await prisma.alunos.findUnique({
         where: {email}
@@ -44,7 +50,7 @@ app.post("/login", async (req, res) =>{
     if(!senhaValida){
         return res.status(401).json({error: "Credenciais Inválidas"})
     }
-        res.status(201).json({ message: "Login realizado com sucesso"})
+        res.status(200).json({ message: "Login realizado com sucesso"})
         }catch(err){
             res.status(500).json({error: "Erro interno no server"})
         }
@@ -52,17 +58,29 @@ app.post("/login", async (req, res) =>{
 
 
 app.put("/alunos/:id", async (req, res) => {
-    const {id} = req.params
-    const {nome, email, senha} = req.body
-    const atualisarAlunos = await prisma.alunos.update({
-        where: {id: Number(id)},
-        data: {
-            nome,
-            email,
-            senha
+    const { id } = req.params;
+    const { nome, email, senha } = req.body;
+
+    const dados = {
+        nome,
+        email
+    };
+
+    if (senha) {
+        dados.senha = await bcrypt.hash(senha, 10);
+    }
+
+    const atualizarAlunos = await prisma.alunos.update({
+        where: { id: Number(id) },
+        data: dados,
+        select: {
+            id: true,
+            nome: true,
+            email: true
         }
-    })
-    res.json(atualisarAlunos)
+    });
+
+    res.json(atualizarAlunos);
 });
 
 app.delete("/alunos/:id", async (req, res) => {

@@ -3,29 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Criptgrafia</title>
+    <title>Sistema Criptografia</title>
 </head>
 <body>
     <h1>Faça cadastro e login</h1>
     <hr>
+
     <section>
-        <h2>cadastro</h2>
-        <input id="cadNome", placeholder="Digite o seu nome" required>
-        <input id="cadEmail", type="email" placeholder="Digite o seu email" required>
-        <input id="cadSenha", type="password" placeholder="Digite a sua senha" required>
-        <button id="btnCad">Cadastrar</button>
+        <h2>Cadastro</h2>
+        <input id="cadNome"  type="text" placeholder="Digite o eu nome" required>
+        <input id="cadEmail" type="email" placeholder="Digite o seu email" required>
+        <input id="cadSenha" type="password" placeholder="Digite a sua senha" required>
+        <button id="btnCad">Cadastro</button>
+    </section>
+            <hr>
+    <section>
+        <h2>Login</h2>
+        <input id="logNome"  type="text" placeholder="Digite o eu nome" required>
+        <input id="logEmail" type="email" placeholder="Digite o seu email" required>
+        <input id="logSenha" type="password" placeholder="Digite a sua senha" required>
+        <button id="btnLog">Login</button>
     </section>
 
     <section>
-        <input id="loginSenha", placeholder="Digite o seu nome", required>
-        <input id="loginEmail", type="email" placeholder="Digite o seu email", required>
-        <input id="loginSenha", type="password" placeholder="Digite a sua senha", required>
-        <button id="btnLogin">Login</button>
+        <h2>Lista</h2>
+        <button id="btnGet">Ver Lista</button>
+       <div id="divGet"></div>
     </section>
-
-    <section>
-        <h2>Alunos cadastrados</h2>
-        <div id="dados"></div>
+<br>
+<br>
+          <h2>ATUALIZAR</h2>
+        <input id="putId"  type="text" placeholder="Digite o Id" required>
+        <input id="putNome"  type="text" placeholder="Digite o seu nome" required>
+        <input id="putEmail" type="email" placeholder="Digite o seu email" required>
+        <input id="putSenha" type="password" placeholder="Digite a sua senha" required>
+        <button id="btnPut">Login</button>
     </section>
 
     <script src="script.js"></script>

@@ -1,50 +1,52 @@
-async function getDados() {
-    const resposta = await fetch("http://localhost:3000/alunos");
-    const alunos = await resposta.json();
-    const lista = document.getElementById("dados");
-}
+const botaoCad = document.getElementById("btnCad");
+const botaoLog = document.getElementById("btnLog");
+const getAll = document.getElementById("divGet");
+const botaoGet = document.getElementById("btnGet");
+const btnPut = document.getElementById('btnPut')
 
-async function postRegistro(event){
-    event.preventDefault();
+botaoGet.addEventListener("click", async () => {
+    const resposta = await fetch("http://localhost:3000/alunos")
+    const data = await resposta.json();
+    document.getElementById("divGet").textContent = JSON.stringify(data);
+})
 
-    const respostaRegistro = await fetch("http://localhost:3000/registrar", {
+botaoCad.addEventListener("submit", async () => {
+    const resposta = await fetch("http://localhost:3000/registrar", {
         method: "POST",
         headers: {"Content-Type" : "application/json"},
         body: JSON.stringify({
-            nome, email, senha
+            nome: document.getElementById("cadNome").value,
+            email: document.getElementById("cadEmail").value,
+            senha: document.getElementById("cadSenha").value
         })
-    });
-}
+    })
+    const data = await resposta.json();
+})
 
-async function postLogin(event) {
-    event.preventDefault();
-
-    const respostaLogin = await fetch("http://localhost:3000/login", {
+botaoLog.addEventListener("click", async () => {
+    const resposta = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: {"Content-Type" : "application/json"},
         body: JSON.stringify({
-            nome, email, senha
+            nome: document.getElementById("logNome").value,
+            email: document.getElementById("logEmail").value,
+            senha: document.getElementById("logSenha").value
         })
-    });
-}
+    })
+    const data = await resposta.json();
+})
 
-async function putDados(id) {
-    const respostaPut = await fetch(`http://localhost:3000/alunos/${id}`, {
-        method: "PUT",
-        headers: {"Content-Type" : "application/json"},
+btnPut.addEventListener('click', async () => {
+    const id = document.getElementById('putId').value;
+    const response = await fetch(`http://localhost:3000/${id}`, {
+        method: 'PUT', 
+        headers: {'Contet-Type': 'application/json'},
         body: JSON.stringify({
-            nome, email, senha
+            nome: document.getElementById('putNome').value,
+            email: document.getElementById('putEmail').value,
+            senha: document.getElementById('putSenha').value
         })
-    });
-}
-
-async function deleteDados(id) {
-    const respostaDelete = await fetch(`http://localhost:3000/alunos/${id}`, {
-        method: "DELETE"
-    });
-    if(!respostaDelete.ok){
-        getDados();
-    }
-}
-
-getDados();
+    })
+    const data = await response.json()
+    console.log(data)
+})
